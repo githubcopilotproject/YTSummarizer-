@@ -73,6 +73,7 @@ if st.button("Get Notes"):
 	transcript_text = extract_transcript_details(youtube_link)
 	if transcript_text:
 		summary = generate_gemini_content(transcript_text, prompt)
+		summary.replace("$", "\$")
 		if summary:
 			st.markdown("## Detailed Notes:")
 			st.write(summary)
