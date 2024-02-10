@@ -105,6 +105,7 @@ if st.button("Get Notes"):
 		transcript_file = "yt_transcript_" + video_id + ".txt"
 		download_youtube_audio(youtube_link, transcript_file)
 		transcript_text = convert_audio_to_text(transcript_file)
+		os.remove(transcript_file)
 		if transcript_text:
 			summary = generate_gemini_content(transcript_text, prompt)
 			summary.replace("$", "\$")
