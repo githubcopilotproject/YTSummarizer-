@@ -1,4 +1,5 @@
 youtube_transcript_api
+pytube
 assemblyai
 streamlit
 google-generativeai
