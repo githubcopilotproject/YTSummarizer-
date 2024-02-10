@@ -3,6 +3,7 @@ import streamlit as st
 #load_dotenv() ##load all the evironment variables
 import os
 from youtube_transcript_api import YouTubeTranscriptApi
+from pytube import YouTube
 
 import assemblyai as aai
 #aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
