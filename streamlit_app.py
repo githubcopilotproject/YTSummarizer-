@@ -7,7 +7,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import assemblyai as aai
 #aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
 #aai.settings.api_key = "ASSEMBLYAI_API_KEY"
-aai.settings.api_key = st.secrets["ASSEMBLYAI_API_KEY"])
+aai.settings.api_key = st.secrets["ASSEMBLYAI_API_KEY"]
 
 import google.generativeai as genai
 #genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
