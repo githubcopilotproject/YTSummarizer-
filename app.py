@@ -86,6 +86,16 @@ def generate_gemini_content(transcript_text, prompt):
 		print ("---------------- response.prompt_feedback: ----------------\n" + str(response.prompt_feedback))
 		return ""
 
+def summarize_transcript_text(transcript_text, prompt):
+	summary = generate_gemini_content(transcript_text, prompt)
+	summary.replace("$", "\$")
+	if summary:
+		st.markdown("## Detailed Notes:")
+		st.write(summary)
+	else:
+		st.write("## LLM couldn't generate transcript summary")
+
+
 st.title("YouTube Video Detailed Notes")
 youtube_link = st.text_input("Enter YouTube Video Link:")
 
@@ -94,25 +104,13 @@ if st.button("Get Notes"):
 	st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", width=100)
 	transcript_text = extract_transcript_details(youtube_link)
 	if transcript_text:
-		summary = generate_gemini_content(transcript_text, prompt)
-		summary.replace("$", "\$")
-		if summary:
-			st.markdown("## Detailed Notes:")
-			st.write(summary)
-		else:
-			st.write("## LLM couldn't generate transcript summary")
+		summarize_transcript_text(transcript_text, prompt)
 	else:
 		transcript_file = "yt_transcript_" + video_id + ".txt"
 		download_youtube_audio(youtube_link, transcript_file)
 		transcript_text = convert_audio_to_text(transcript_file)
 		os.remove(transcript_file)
 		if transcript_text:
-			summary = generate_gemini_content(transcript_text, prompt)
-			summary.replace("$", "\$")
-			if summary:
-				st.markdown("## Detailed Notes:")
-				st.write(summary)
-			else:
-				st.write("## LLM couldn't generate transcript summary")
+			summarize_transcript_text(transcript_text, prompt)
 		else:
 			st.write("## No Transcript found for this video")
