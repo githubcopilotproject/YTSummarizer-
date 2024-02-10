@@ -1,9 +1,16 @@
-import streamlit as st
+#import streamlit as st
 from dotenv import load_dotenv
 load_dotenv() ##load all the evironment variables
 import os
-import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi
+from pytube import YouTube
+
+import assemblyai as aai
+aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
+#aai.settings.api_key = "ASSEMBLYAI_API_KEY"
+#aai.settings.api_key = st.secrets["ASSEMBLYAI_API_KEY"]
+
+import google.generativeai as genai
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 #genai.configure(api_key="GOOGLE_API_KEY")
 #genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
@@ -54,6 +61,21 @@ def extract_transcript_details(youtube_video_url):
 		print ("---------------- FOUND Error: ----------------\n" + str(e))
 		return ""
 
+def download_youtube_audio(url, transcript_file):
+	yt = YouTube(url)
+	audio_stream = yt.streams.filter(only_audio=True).first()
+	audio_stream.download(output_path=".", filename=transcript_file)
+
+
+def convert_audio_to_text(transcript_file):
+	try:
+		transcriber = aai.Transcriber()
+		transcript = transcriber.transcribe(transcript_file)
+		return transcript.text
+	except Exception as e:
+		print ("---------------- FOUND Error While convert_audio_to_text: ----------------\n" + str(e))
+		return ""	
+
 def generate_gemini_content(transcript_text, prompt):
 	try:
 		model = genai.GenerativeModel(model_name = "gemini-pro", generation_config=generation_config, safety_settings = safety_settings)
@@ -80,4 +102,17 @@ if st.button("Get Notes"):
 		else:
 			st.write("## LLM couldn't generate transcript summary")
 	else:
-		st.write("## No Transcript found for this video")
+		transcript_file = "yt_transcript_" + video_id + ".txt"
+		download_youtube_audio(youtube_link, transcript_file)
+		transcript_text = convert_audio_to_text(transcript_file)
+		os.remove(transcript_file)
+		if transcript_text:
+			summary = generate_gemini_content(transcript_text, prompt)
+			summary.replace("$", "\$")
+			if summary:
+				st.markdown("## Detailed Notes:")
+				st.write(summary)
+			else:
+				st.write("## LLM couldn't generate transcript summary")
+		else:
+			st.write("## No Transcript found for this video")
