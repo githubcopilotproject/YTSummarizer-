@@ -1,4 +1,5 @@
 youtube_transcript_api
+assemblyai
 streamlit
 google-generativeai
 python-dotenv
