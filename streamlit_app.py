@@ -258,7 +258,8 @@ def get_conversational_chain():
 	Answer:
 	"""
 
-	model = ChatGoogleGenerativeAI(model="gemini-pro", generation_config=generation_config, safety_settings=safety_settings, google_api_key="AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs")
+	#model = ChatGoogleGenerativeAI(model="gemini-pro", generation_config=generation_config, safety_settings=safety_settings, google_api_key="AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs")
+	model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3, safety_settings = safety_settings, google_api_key="AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs")
 	prompt_conversation = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
 	chain = load_qa_chain(model, chain_type="stuff", prompt=prompt_conversation)
 	return chain
