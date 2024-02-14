@@ -17,16 +17,10 @@ from pytube import YouTube
 import assemblyai as aai
 #aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
 aai.settings.api_key = st.secrets["ASSEMBLYAI_API_KEY"]
-#aai.settings.api_key = "c3e7785e4b814ad19395e4a8badbebe2"
 
 import google.generativeai as genai
 #genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
-#genai.configure(api_key="AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs")
-
-#Inside streamlit portal you need to add these 2 secrect keys
-#GOOGLE_API_KEY = "AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs"
-#ASSEMBLYAI_API_KEY = "c3e7785e4b814ad19395e4a8badbebe2"
 
 # Initialize "Get Note" button clicked state [Else UI will not work]
 if 'clicked' not in st.session_state:
@@ -195,7 +189,7 @@ def start_chat_session():
 		print ("Entered sidebar")
 		
 		# Container for chat messages
-		chat_container = st.container(height=600)
+		chat_container = st.container(height=800)
 		
 		# Display chat messages from history on app rerun
 		for message in st.session_state.messages:
@@ -258,8 +252,7 @@ def get_conversational_chain():
 	Answer:
 	"""
 
-	#model = ChatGoogleGenerativeAI(model="gemini-pro", generation_config=generation_config, safety_settings=safety_settings, google_api_key="AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs")
-	model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3, safety_settings = safety_settings, google_api_key="AIzaSyCJ5f_6REcenTkKdCiPEIdVyYy6N85JrFs")
+	model = ChatGoogleGenerativeAI(model="gemini-pro", generation_config=generation_config, safety_settings=safety_settings, google_api_key=st.secrets["GOOGLE_API_KEY"])
 	prompt_conversation = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
 	chain = load_qa_chain(model, chain_type="stuff", prompt=prompt_conversation)
 	return chain
@@ -284,3 +277,4 @@ if st.session_state.clicked:
 	start_chat_session()
 
 st.write(st.session_state.summary)
+
