@@ -195,7 +195,7 @@ def start_chat_session():
 		print ("Entered sidebar")
 		
 		# Container for chat messages
-		chat_container = st.container(height=800)
+		chat_container = st.container(height=600)
 		
 		# Display chat messages from history on app rerun
 		for message in st.session_state.messages:
