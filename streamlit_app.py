@@ -68,6 +68,13 @@ safety_settings = [
 ]
 
 
+safety_settings1 = {
+	HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+	HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+	HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+	HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+	HarmCategory.HARM_CATEGORY_UNSPECIFIED: HarmBlockThreshold.BLOCK_NONE,
+}
 
 def click_button():
 	print("Inside click_button() so that means button is clicked")
@@ -189,7 +196,7 @@ def start_chat_session():
 		print ("Entered sidebar")
 		
 		# Container for chat messages
-		chat_container = st.container(height=800)
+		chat_container = st.container(height=600)
 		
 		# Display chat messages from history on app rerun
 		for message in st.session_state.messages:
@@ -252,7 +259,7 @@ def get_conversational_chain():
 	Answer:
 	"""
 
-	model = ChatGoogleGenerativeAI(model="gemini-pro", generation_config=generation_config, safety_settings = safety_settings, google_api_key=st.secrets["GOOGLE_API_KEY"])
+	model = ChatGoogleGenerativeAI(model="gemini-pro", generation_config=generation_config, safety_settings=safety_settings1, google_api_key=st.secrets["GOOGLE_API_KEY"])
 	prompt_conversation = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
 	chain = load_qa_chain(model, chain_type="stuff", prompt=prompt_conversation)
 	return chain
