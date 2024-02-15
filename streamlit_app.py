@@ -48,7 +48,6 @@ generation_config = {
   "candidate_count": 1,
 }
 
-
 safety_settings = [
   {
     "category": "HARM_CATEGORY_HARASSMENT",
@@ -65,12 +64,29 @@ safety_settings = [
   {
     "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
     "threshold": "BLOCK_NONE"
+  }
+]
+
+
+safety_settings1 = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": 0  # Change "BLOCK_NONE" to 0
   },
   {
-    "category": "HARM_CATEGORY_UNSPECIFIED",
-    "threshold": "BLOCK_NONE"
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": 0  # Change "BLOCK_NONE" to 0
   },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": 0  # Change "BLOCK_NONE" to 0
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": 0  # Change "BLOCK_NONE" to 0
+  }
 ]
+
 
 
 def click_button():
