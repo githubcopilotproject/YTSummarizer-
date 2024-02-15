@@ -48,6 +48,7 @@ generation_config = {
   "candidate_count": 1,
 }
 
+
 safety_settings = [
   {
     "category": "HARM_CATEGORY_HARASSMENT",
@@ -64,17 +65,13 @@ safety_settings = [
   {
     "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
     "threshold": "BLOCK_NONE"
-  }
+  },
+  {
+    "category": "HARM_CATEGORY_UNSPECIFIED",
+    "threshold": "BLOCK_NONE"
+  },
 ]
 
-
-safety_settings1 = {
-	HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-	HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-	HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-	HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-	HarmCategory.HARM_CATEGORY_UNSPECIFIED: HarmBlockThreshold.BLOCK_NONE,
-}
 
 def click_button():
 	print("Inside click_button() so that means button is clicked")
