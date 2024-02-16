@@ -161,7 +161,7 @@ def convert_audio_to_text(transcript_file):
 def generate_gemini_content(transcript_text, prompt):
 	print("Inside generate_gemini_content()")
 	try:
-		model = genai.GenerativeModel(model_name = "gemini-pro", generation_config=generation_config, safety_settings=safety_settings)
+		model = genai.GenerativeModel(model_name = "gemini-1.0-pro-latest", generation_config=generation_config, safety_settings=safety_settings)
 		response = model.generate_content(prompt + transcript_text)
 		print("---------------- model.count_tokens: ----------------\n" + str(model.count_tokens(transcript_text)))
 		print ("---------------- response.prompt_feedback: ----------------\n" + str(response.prompt_feedback))
