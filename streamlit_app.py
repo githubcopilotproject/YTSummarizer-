@@ -266,7 +266,7 @@ def get_conversational_chain():
 	return chain
 
 
-
+st.set_page_config( page_title="YouTube Video Chat", page_icon="🧊")
 st.title("YouTube Video Detailed Notes")
 youtube_video_url = st.text_input("Enter YouTube Video Link:", value="https://www.youtube.com/watch?v=fYrAl8BIzJo")
 #print ("youtube_video_url: " + youtube_video_url)
