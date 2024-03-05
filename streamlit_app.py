@@ -220,7 +220,7 @@ def start_chat_session():
 
 def get_text_chunks(text):
 	print("Inside get_text_chunks()")
-	text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=3000)
+	text_splitter = RecursiveCharacterTextSplitter(chunk_size=4096, chunk_overlap=1000)
 	chunks = text_splitter.split_text(text)
 	return chunks
 
