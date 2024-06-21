@@ -3,6 +3,7 @@ pytube
 assemblyai
 streamlit
 google-generativeai
+google-cloud
 python-dotenv
 pathlib
 langchain
